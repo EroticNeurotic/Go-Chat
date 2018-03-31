@@ -1,11 +1,17 @@
 // This is the global webserver
 
-package main
+import (
+    "log"
+    "net/http"
+)
 
-import "fmt"
-
+func checkError(err error) {
+    if err != nil {
+        log.Fatal(err)  //log if there is an error
+    }
+}
 
 func main() {
-
-    fmt.Println("example code")
+    err := http.ListenAndServe(":9999", nil)    //server listens to port 9999
+    checkError(err)
 }
