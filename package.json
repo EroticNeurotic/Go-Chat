@@ -1,0 +1,26 @@
+{
+  "name": "netwerking",
+  "version": "1.0.0",
+  "description": "My uncle made the mistake of investing in sub prime mortages",
+  "main": "server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EroticNeurotic/netwerking.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EroticNeurotic/netwerking/issues"
+  },
+  "homepage": "https://github.com/EroticNeurotic/netwerking#readme",
+  "dependencies": {
+    "ws": "^5.1.0"
+  }
+}
