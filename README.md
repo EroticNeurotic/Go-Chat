@@ -1,5 +1,5 @@
-# netwerking
-My uncle made the mistake of investing in sub prime mortages
+# Networking Hullabaloo
+This is now a serious project made by serious men 
 
 # Installing
 We are currently using a makeshift websocket server and client
