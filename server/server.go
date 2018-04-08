@@ -9,19 +9,17 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-//we want a message to contain the message itself and the sender (instead of username could use a client type)
-type Message struct {
-	Username string `json:"username"`
-	Message  string `json:"message"`
-}
-
-var upgrader = websocket.Upgrader{} //minimise global variable use
+var upgrader = websocket.Upgrader{CheckOrigin: CheckOrigin} //minimise global variable use
 var clients = make(map[*websocket.Conn]bool)
 var broadcast = make(chan Message)
 
-//does this need to be an entire separate func?
-func handleFile(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "index.html") //make an actual file to be used, maybe replace with file server
+type Message struct {
+	messageType int
+	message     []byte
+}
+
+func CheckOrigin(_ *http.Request) bool {
+	return true
 }
 
 //maybe put websocket stuff into different files
@@ -34,13 +32,15 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	clients[conn] = true //client is connected
 
 	for {
-		var message Message
-		err := conn.ReadJSON(&message)
+
+		messageType, data, err := conn.ReadMessage()
 		if err != nil {
 			log.Println(err)
 			delete(clients, conn)
 			break
 		}
+
+		message := Message{messageType: messageType, message: data}
 		broadcast <- message //sends message to broadcast channel
 	}
 }
@@ -49,7 +49,7 @@ func handleMessage() {
 	for {
 		message := <-broadcast        //takes next message from broadcast channel
 		for client := range clients { //writes message to each client
-			err := client.WriteJSON(message)
+			err := client.WriteMessage(message.messageType, message.message)
 			if err != nil {
 				log.Printf(err.Error())
 				client.Close()
@@ -60,7 +60,6 @@ func handleMessage() {
 }
 
 func main() {
-	http.HandleFunc("/", handleFile)
 	http.HandleFunc("/ws", handleConnections)
 	go handleMessage()
 	err := http.ListenAndServe(":9999", nil)

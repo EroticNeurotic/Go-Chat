@@ -1,25 +1,10 @@
 # Networking Hullabaloo
-This is now a serious project made by serious men 
-
-# Installing
-We are currently using a makeshift websocket server and client
-made in node js  
-But that'll _hopefully_ change soon.
-
-
-## Dependencies
-* **golang**        (https://golang.org)
-* **node.js**       (https://nodejs.org)
-    * ws (websocket server)
-
-
-## Instructions
-cd to the folder where this is stored
-and run `npm install` to install dependencies
+This is now a serious project made by serious men
 
 # Running
-To run the server do `node server.js` in the server folder
+The main hub is in server/server.go .
+To run it do `go run server/server.js` (we may make binaries some day :) )
 
-To run the client just run any http server.
-( I have personally been using `python -m http.server` (for python 3) in the folder client/apps )
-and then connect to it from your browser
+Now fire up the client with `go run client/client.go`. Connect to it from the browser at
+`http://localhost:8080` and enter
+the ip of the hub when prompted.
