@@ -19,25 +19,17 @@ new Vue({
 
 	data: {
 		ws: null,
-		port: 9999,
 		newMsg: '',
 		chatContent: '',
 		username: 'Dave', //create login to set this yourself
-		joined: true //should depend on login status
+		joined: true //should depend on login status 
 	},
 
 	created: function() {
 		console.log('Instance created');
 		var self = this;
-		var ip = prompt("Enter IP of websocket","localhost")
-		this.ws = new WebSocket('ws://' + ip+":"+this.port+'/ws');
-
-		this.ws.onopen = function success(event){
-			console.log('WebSocket initialised')
-		}
-		this.ws.onerror = function handleError(){
-			alert("couldn't connect to WebSocket")
-		}
+		this.ws = new WebSocket('ws://' + window.location.host + '/ws');
+		console.log('WebSocket initialised')
 
 		this.ws.addEventListener('message', function(e) {
 
