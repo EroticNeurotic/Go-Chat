@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <title>Document</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #d3d3d3;
+            height: 100vh;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="messageBox" style="display: flex; flex-direction: column; max-width: 1000px; width: 80%; height: 900px; max-height: 90%">
+        <header class="w3-container w3-teal">
+            <h2>Go Chat</h2>
+        </header>
+        <main class="w3-container w3-white w3-padding-16" style="flex: 1; overflow: auto">
+            <span v-html="chatContent"></span>
+        </main>
+        <div class="w3-container w3-blue-grey w3-padding-16" v-if="joined">
+            <input type="text" v-model="newMsg" class="w3-input w3-border w3-round-large" @keyup.enter="send">
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>
